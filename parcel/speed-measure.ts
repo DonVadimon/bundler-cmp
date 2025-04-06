@@ -9,8 +9,7 @@ import { log } from '../measure/log';
 import { git } from '../measure/git';
 import { measureDevServer } from '../measure/measure-dev-server';
 
-// Удяляем кэш
-fs.rmSync(path.resolve(env.paths.CWD, '.parcel-cache'), { recursive: true, force: true });
+const rmCache = () => fs.rmSync(path.resolve(env.paths.CWD, '.parcel-cache'), { recursive: true, force: true });
 
 const bundler = new Parcel({
     entries: 'public/index.html',
@@ -25,6 +24,7 @@ const bundler = new Parcel({
 
 const measureBuild = async () => {
     for (let index = 0; index < env.argv.repeat; index++) {
+        rmCache();
         const { buildTime } = await bundler.run();
         log.addRunLog({
             run: index + 1,

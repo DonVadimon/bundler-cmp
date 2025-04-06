@@ -34,6 +34,7 @@ const LOGS_DIR = path.resolve(CWD, '.logs');
 const LOG_FILE = buildLogFilePath(LOGS_DIR);
 const LOG_RAW_FILE = buildRawLogFilePath(LOGS_DIR);
 const LOG_REPORT_FILE = path.resolve(LOGS_DIR, '.report.log');
+const LOG_REPORT_RUNS_FILE = path.resolve(LOGS_DIR, '.report.json');
 
 const SRC_FILE = path.resolve(CWD, 'src', 'index.tsx');
 const BUILD_DIR = path.resolve(CWD, '.build');
@@ -52,6 +53,7 @@ export const env = {
         LOG_FILE,
         LOG_RAW_FILE,
         LOG_REPORT_FILE,
+        LOG_REPORT_RUNS_FILE,
         SRC_FILE,
         BUILD_DIR,
         CFG: fs.existsSync(CFG) ? CFG : null,
