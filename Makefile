@@ -53,13 +53,28 @@ sm-watch-pl: sm-log # speed measure parcel watch
 sm-server-pl: sm-log # speed measure parcel dev server
 	cd parcel && eval 'npm run sm -- --repeat=$$SM_REPEAT --measure=server'
 
-sm-build-all: sm-build-wp sm-build-rp sm-build-pl
+build-vt: # build vite
+	cd vite && npm run build
+
+start-vt: # start vite
+	cd vite && npm run start
+
+sm-build-vt: sm-log # speed measure vite build
+	cd vite && eval 'npm run sm -- --repeat=$$SM_REPEAT --measure=build'
+
+sm-watch-vt: sm-log # speed measure vite watch
+	cd vite && eval 'npm run sm -- --repeat=$$SM_REPEAT --measure=watch'
+
+sm-server-vt: sm-log # speed measure vite dev server
+	cd vite && eval 'npm run sm -- --repeat=$$SM_REPEAT --measure=server'
+
+sm-build-all: sm-build-wp sm-build-rp sm-build-pl sm-build-vt
 	echo "🛠 build done"
 
-sm-watch-all: sm-watch-wp sm-watch-rp sm-watch-pl
+sm-watch-all: sm-watch-wp sm-watch-rp sm-watch-pl sm-watch-vt
 	echo "👀 watch done"
 
-sm-server-all: sm-server-wp sm-server-rp sm-server-pl
+sm-server-all: sm-server-wp sm-server-rp sm-server-pl sm-server-vt
 	echo "🛜 server done"
 
 sm-all: sm-build-all sm-watch-all sm-server-all
