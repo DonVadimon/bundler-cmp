@@ -17,10 +17,8 @@
         "declaration": false
     },
     "ts-node": {
-        "esm": true,
-        "experimentalSpecifierResolution": "explicit",
         "compilerOptions": {
-            "module": "ESNext"
+            "module": "CommonJS"
         }
     }
 }
