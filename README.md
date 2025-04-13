@@ -1,4 +1,4 @@
-# Сравнение Webpack, Rollup, Parcel
+# Сравнение Webpack, Rollup, Parcel, Vite
 
 ```sh
 .
@@ -7,7 +7,9 @@
 │   ├── .build # собранный проект
 │   └── .logs # логи с замерами
 ├── rollup # проект + rollup
-├── webpack # проект + webpack
+├── vite # проект + vite
+├── webpack # проект + webpack + babel
+├── webpack-swc # проект + webpack + swc
 ├── Makefile # запускатор заметор
 ├── package.json # это тут чтобы были типы в measure
 └── tsconfig.json # это тут чтобы были типы в measure
