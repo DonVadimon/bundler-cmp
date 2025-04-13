@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+
 import { build } from 'vite';
 import { RollupWatcher } from 'vite/node_modules/rollup';
 
@@ -9,8 +12,11 @@ import { measureDevServer } from '../measure/measure-dev-server';
 
 env.setEnvVars();
 
+const rmCache = () => fs.rmSync(path.resolve(env.paths.CWD, 'node_modules', '.vite'), { recursive: true, force: true });
+
 const measureBuild = async () => {
     for (let index = 0; index < env.argv.repeat; index++) {
+        rmCache();
         const startTime = Date.now();
         await build();
         const endTime = Date.now();

@@ -5,6 +5,12 @@ all:
 	@echo "Choose task"
 	exit 1
 
+install:
+	cd webpack && npm ci && cd ..
+	cd rollup && npm ci && cd ..
+	cd parcel && npm ci && cd ..
+	cd vite && npm ci && cd ..
+
 sm-log:
 	echo "SM_REPEAT - $$SM_REPEAT"
 
@@ -68,13 +74,28 @@ sm-watch-vt: sm-log # speed measure vite watch
 sm-server-vt: sm-log # speed measure vite dev server
 	cd vite && eval 'npm run sm -- --repeat=$$SM_REPEAT --measure=server'
 
-sm-build-all: sm-build-wp sm-build-rp sm-build-pl sm-build-vt
+build-wp-swc: # build webpack-swc
+	cd webpack-swc && npm run build
+
+start-wp-swc: # start webpack-swc
+	cd webpack-swc && npm run start
+
+sm-build-wp-swc: sm-log # speed measure webpack-swc build
+	cd webpack-swc && eval 'npm run sm -- --repeat=$$SM_REPEAT --measure=build'
+
+sm-watch-wp-swc: sm-log # speed measure webpack-swc watch
+	cd webpack-swc && eval 'npm run sm -- --repeat=$$SM_REPEAT --measure=watch'
+
+sm-server-wp-swc: sm-log # speed measure webpack-swc dev server
+	cd webpack-swc && eval 'npm run sm -- --repeat=$$SM_REPEAT --measure=server'
+
+sm-build-all: sm-build-wp sm-build-rp sm-build-pl sm-build-vt sm-build-wp-swc
 	echo "🛠 build done"
 
-sm-watch-all: sm-watch-wp sm-watch-rp sm-watch-pl sm-watch-vt
+sm-watch-all: sm-watch-wp sm-watch-rp sm-watch-pl sm-watch-vt sm-watch-wp-swc
 	echo "👀 watch done"
 
-sm-server-all: sm-server-wp sm-server-rp sm-server-pl sm-server-vt
+sm-server-all: sm-server-wp sm-server-rp sm-server-pl sm-server-vt sm-server-wp-swc
 	echo "🛜 server done"
 
 sm-all: sm-build-all sm-watch-all sm-server-all
@@ -86,4 +107,5 @@ sm-report: sm-all
 clear-out:
 	rm -rf ./*/.build
 	rm -rf ./*/.logs
-	rm -rf ./*/.parcel-cache
+	rm -rf ./parcel/.parcel-cache
+	rm -rf ./vite/node_modules/.vite

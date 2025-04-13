@@ -15,13 +15,15 @@ const setEnvVars = () => {
     process.env.NODE_ENV = mode;
 };
 
-export const ALL_BUNDLERS = ['parcel', 'rollup', 'webpack'] as const;
+export const ALL_BUNDLERS = ['parcel', 'rollup', 'webpack', 'vite', 'webpack-swc'] as const;
 export type Bundler = (typeof ALL_BUNDLERS)[number];
 
 const CFG_PER_DIR: Record<Bundler, string> = {
     parcel: '1',
     rollup: 'rollup.config.ts',
     webpack: 'webpack.config.ts',
+    vite: 'vite.config.mts',
+    'webpack-swc': 'webpack.config.ts',
 };
 
 const buildLogFilePath = (base: string) => path.resolve(base, `.${argv.measure}.log`);
